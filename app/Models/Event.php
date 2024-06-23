@@ -10,6 +10,9 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'body', 'date'];
+    protected $casts = [
+        'time' => 'datetime',
+    ];
 
     public function comments()
     {

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('body');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->morphs('commentable');
-            $table->timestamps();
+            $table->morphs('commentable');                                 // polimorfiska attieciba,
+            $table->timestamps();                                          // komentari ir apvienoti lidmasinam un notikumiem
         });
     }
 
