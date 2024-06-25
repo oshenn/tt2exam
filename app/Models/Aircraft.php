@@ -10,10 +10,10 @@ class Aircraft extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'body'];
-
-    public function keywords()
+    
+    public function tags()
     {
-        return $this->belongsToMany(Keyword::class, 'aircraft_keyword');
+        return $this->belongsToMany(Tag::class, 'aircraft_tag');
     }
 
     public function comments()

@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aircraft', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', length:255);
-            $table->string('description');
-            $table->text('body');
-            $table->timestamps();
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->foreignId('role_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->primary(['user_id', 'role_id']); // Composite key
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aircraft');
+        Schema::dropIfExists('role_user');
     }
 };
