@@ -73,7 +73,7 @@ class AircraftController extends Controller
             'body' => 'required|string',
             'image' => 'nullable|image|mimes:jpg|max:4096',
             'locations' => 'array',
-            'locations.*' => 'exists:location,id',
+            'locations.*' => 'exists:locations,id',
             'tags' => 'array',
             'tags.*' => 'exists:tags,id'
         ]);
