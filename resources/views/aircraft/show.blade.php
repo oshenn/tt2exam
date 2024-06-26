@@ -8,6 +8,14 @@
             <p class="bodydescription">{{ $aircraft->description }}</p>
             <p class="bodytext">{{ $aircraft->body }}</p>
             <p class="acknowledgement"> Aircraft description from <strong>Wikipedia, the free encyclopedia.<strong></p>
+            @if($locations->isNotEmpty())
+            <h2>Locations where this aircraft can be seen:</h2>
+            <ul>
+                @foreach($locations as $location)
+                    <li>{{ $location->name }} at {{ $location->location }}</li>
+                @endforeach
+            </ul>
+            @endif
             @auth
             @can('admin')
                 <form method="POST" action="{{ route('aircraft.destroy', $aircraft->id) }}">

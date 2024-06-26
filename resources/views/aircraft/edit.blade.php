@@ -36,9 +36,22 @@
                     </label>
                 </div>
             @endforeach
-</div>
+        </div>
 
-        <button type="submit" class="btn btn-primary">Update Aircraft</button>
+        <div class="form-group">
+            <label for="locations">Locations:</label>
+            @foreach($locations as $location)
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="locations[]" value="{{ $location->id }}"
+                        @if($aircraft->locations->contains($location)) checked @endif
+                        > {{ $location->name }}
+                    </label>
+                </div>
+            @endforeach
+        </div>
+
+        <button type="submit" class="submitbutton">Update Aircraft</button>
     </form>
 </div>
 @endsection

@@ -33,7 +33,7 @@ class EventSeeder extends Seeder
 
         Event::create([
             'name' => 'Filler2 Expo 2024',
-            'description' => 'An expo showcasing the latest in aviation technology',
+            'description' => 'An expo showcasing the latest in database filling technology',
             'body' => 'empty',
             'time' => Carbon::create('2024-11-10'),
         ]);

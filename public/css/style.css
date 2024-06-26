@@ -323,3 +323,7 @@ textarea {
 .event-info .eventlink{
     color:cornflowerblue;
 }
+
+.submitbutton{
+    margin-bottom: 100px;
+}

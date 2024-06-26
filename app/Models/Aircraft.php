@@ -20,4 +20,9 @@ class Aircraft extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class);
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Aircraft;
 use App\Models\Event;
 use App\Models\Tag;
+use App\Models\location;
 
 class AircraftController extends Controller
 {
@@ -19,14 +20,16 @@ class AircraftController extends Controller
 
     public function show(Aircraft $aircraft)
     {
+        $locations = $aircraft->locations;
         $aircraft->load('comments.user');
-        return view('aircraft.show', compact('aircraft'));
+        return view('aircraft.show', compact('aircraft', 'locations'));
     }
 
     public function create()
     {
+        $locations = location::all();
         $tags = Tag::all();
-        return view('aircraft.create', compact('tags'));
+        return view('aircraft.create', compact('tags', 'locations'));
     }
 
     public function store(Request $request)
@@ -36,12 +39,17 @@ class AircraftController extends Controller
             'description' => 'required|string',
             'body' => 'required|string',
             'image' => 'nullable|image|mimes:jpg|max:4096',
+            'locations' => 'array',
+            'locations.*' => 'exists:locations,id',
             'tags' => 'array',
             'tags.*' => 'exists:tags,id'
         ]);
 
         $aircraft = Aircraft::create($request->all());
         $aircraft->tags()->sync($request->input('tags', []));
+        if ($request->has('locations')) {
+            $aircraft->locations()->sync($request->input('locations'));
+        }
 
         if ($request->hasFile('image')) {
             $filename = $request->name . '.' . $request->image->getClientOriginalExtension();
@@ -52,8 +60,9 @@ class AircraftController extends Controller
 
     public function edit(Aircraft $aircraft)
     {
+        $locations = location::all();
         $tags = Tag::all();
-        return view('aircraft.edit', compact('aircraft', 'tags'));
+        return view('aircraft.edit', compact('aircraft', 'tags', 'locations'));
     }
 
     public function update(Request $request, Aircraft $aircraft)
@@ -63,6 +72,8 @@ class AircraftController extends Controller
             'description' => 'required|string',
             'body' => 'required|string',
             'image' => 'nullable|image|mimes:jpg|max:4096',
+            'locations' => 'array',
+            'locations.*' => 'exists:location,id',
             'tags' => 'array',
             'tags.*' => 'exists:tags,id'
         ]);
@@ -75,6 +86,9 @@ class AircraftController extends Controller
 
         $aircraft->update($request->all());
         $aircraft->tags()->sync($request->input('tags', []));
+        if ($request->has('locations')) {
+            $aircraft->locations()->sync($request->input('locations'));
+        }
         return redirect()->route('aircraft.index');
     }
 

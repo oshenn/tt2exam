@@ -30,7 +30,7 @@
         <label for="image">Event Image/Poster:</label>
         <input type="file" name="image" id="image">
 
-        <button type="submit" class="btn btn-primary">Update event</button>
+        <button type="submit" class="submitbutton">Update event</button>
     </form>
 </div>
 @endsection

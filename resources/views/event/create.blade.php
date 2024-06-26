@@ -29,7 +29,7 @@
             <input type="date" class="form-control" id="time" name="time" value="" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create event</button>
+        <button type="submit" class="submitbutton">Create event</button>
     </form>
 </div>
 @endsection

@@ -35,7 +35,18 @@
             @endforeach
         </div>
 
-        <button type="submit" class="btn btn-primary">Create Aircraft</button>
+        <div class="form-group">
+            <label for="locations">Locations:</label>
+            @foreach($locations as $location)
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="locations[]" value="{{ $location->id }}"> {{ $location->name }}
+                    </label>
+                </div>
+            @endforeach
+        </div>
+
+        <button type="submit" class="submitbutton">Create Aircraft</button>
     </form>
 </div>
 @endsection
