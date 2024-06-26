@@ -4,25 +4,30 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="logo-container" >
                     <a href="{{ route('aircraft.index') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <img class='logo' src="{{ asset('img/logo.png') }}">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('aircraft.index')">
-                        Aircraft
+                        {{__('basic.aircraft')}}
                     </x-nav-link>
-                    <x-nav-link :href="route('events.index')">
-                        Events
+                    <x-nav-link :href="route('event.index')">
+                        {{__('basic.events')}}
                     </x-nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="languageswitcher">
+                <a href="{{ route('change.language', 'en') }}">English</a>
+                <a> / <a>
+                <a href="{{ route('change.language', 'lv') }}">Latvian</a>
+            </div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">

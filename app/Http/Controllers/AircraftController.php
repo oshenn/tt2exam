@@ -22,33 +22,49 @@ class AircraftController extends Controller
         $aircraft->load('comments.user');
         return view('aircraft.show', compact('aircraft'));
     }
+
     public function create()
     {
-        return view('aircraft.create');
+        $tags = Tag::all();
+        return view('aircraft.create', compact('tags'));
     }
+
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'required|string',
             'body' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'nullable|image|mimes:jpg|max:4096',
+            'tags' => 'array',
+            'tags.*' => 'exists:tags,id'
         ]);
 
-        Aircraft::create($request->all());
+        $aircraft = Aircraft::create($request->all());
+        $aircraft->tags()->sync($request->input('tags', []));
+
+        if ($request->hasFile('image')) {
+            $filename = $request->name . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('img'), $filename);
+        }
         return redirect()->route('aircraft.index');
     }
 
     public function edit(Aircraft $aircraft)
     {
-        return view('aircraft.edit', compact('aircraft'));
+        $tags = Tag::all();
+        return view('aircraft.edit', compact('aircraft', 'tags'));
     }
 
     public function update(Request $request, Aircraft $aircraft)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'required|string',
             'body' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg'
+            'image' => 'nullable|image|mimes:jpg|max:4096',
+            'tags' => 'array',
+            'tags.*' => 'exists:tags,id'
         ]);
 
         if ($request->hasFile('image')) {
@@ -58,6 +74,7 @@ class AircraftController extends Controller
     
 
         $aircraft->update($request->all());
+        $aircraft->tags()->sync($request->input('tags', []));
         return redirect()->route('aircraft.index');
     }
 
@@ -66,7 +83,7 @@ class AircraftController extends Controller
         $aircraft->delete();
         return redirect()->route('aircraft.index');
     }
-    
+
     public function search(Request $request)
     {
         $query = $request->input('query');

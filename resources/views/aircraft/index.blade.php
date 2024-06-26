@@ -8,29 +8,38 @@
             <div class="aircraft-info">
                 <h2>{{ $plane->name }}</h2>
                 <p>{{ $plane->description }}</p>
-                <a class="read-more" href="{{ route('aircraft.show', $plane->id) }}">Read more</a>
+                <a class="read-more" href="{{ route('aircraft.show', $plane->id) }}">{{__('basic.readmore')}}</a>
             </div>
         </div>
     @empty
-        <p>No aircraft found.</p>
+        <p>{{__('basic.noaircraft')}}</p>
     @endforelse
 </div>
 
 <div class="sidebar">
     <div class="search-container">
         <form action="{{ route('aircraft.search') }}" method="GET">
-            <input type="text" name="query" placeholder="Search aircraft..." class="search-bar">
+            <input type="text" name="query" placeholder="{{__('basic.searchaircraft')}}" class="search-bar">
             @foreach ($tags as $tag)
                 <div class="checkbox">
                     <input type="checkbox" id="tag_{{ $tag->id }}" name="tags[]" value="{{ $tag->id }}">
-                    <label for="tag_{{ $tag->id }}">{{ $tag->name }}</label>
+                    <label for="tag_{{ $tag->id }}">{{__('basic.' . $tag->name) }}</label>
                 </div>
             @endforeach
-            <button type="submit">Search</button>
+            <button type="submit" class='search-button'>Search</button>
+            <hr>
+            @auth
+            @can('admin')
+            <div class="create-aircraft-button">
+                <a href="{{ route('aircraft.create') }}" class="create-button">Create New Aircraft</a>
+            </div>
+            @endcan
+            @endauth
+            <hr>
         </form>
     </div>
         <div class="events-container">
-            <h3>Upcoming events</h3>
+            <h3>{{__('basic.upcomingevents')}}</h3>
             <ul class="events-list">
                 @foreach ($events as $event)
                 <li>{{ $event->name }} - {{ $event->time->format('d-m-Y') }}</li>

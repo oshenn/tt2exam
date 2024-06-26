@@ -9,7 +9,7 @@ class Aircraft extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'body'];
+    protected $fillable = ['name', 'description', 'body'];
     
     public function tags()
     {
