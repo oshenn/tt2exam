@@ -110,7 +110,7 @@ class AircraftController extends Controller
             })
             ->when($tags, function ($q) use ($tags) {
                 $q->whereHas('tags', function ($q) use ($tags) {
-                    $q->whereIn('id', $tags);
+                    $q->whereIn('tags.id', $tags);
                 });
             })
             ->get();
@@ -121,6 +121,7 @@ class AircraftController extends Controller
             'tags' => Tag::all()
         ]);
     }
+    
     
 }
 

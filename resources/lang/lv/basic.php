@@ -8,7 +8,7 @@ return [
     'searchaircraft' => 'Meklēt lidaparātus...',
     'searchevents' => 'Meklēt pasākumus...',
     'upcomingevents' => 'Pasākumi nākotnē',
-    'noaircraft' => 'No aircraft found.',
+    'noaircraft' => 'Neviens lidaparāts netika atrasts',
     'search' => 'Meklēt',
     'Commercial' => 'Komerciāls',
     'Cargo' => 'Kravas',
